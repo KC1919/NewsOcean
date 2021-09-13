@@ -9,17 +9,20 @@ export class News extends Component {
       articles: [],
       loading: false,
       page: 1,
+      totalResults:0
     };
   }
-
+//   https://newsapi.org/v2/top-headlines?country=ca&apiKey=2284196bba7c4b2697f4132f5b4f1236&page=${this.state.page}`
+  
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2284196bba7c4b2697f4132f5b4f1236&page=${this.state.page}`;
+    let url = `https://newsapi.org/v2/everything?q=bitcoin&apiKey=2284196bba7c4b2697f4132f5b4f1236&page=${this.state.page}`;
     let data = await fetch(url);
     let parsedData = await data.json();
 
     console.log(parsedData.articles);
+    console.log(parsedData.totalResults);
 
-    this.setState({ articles: parsedData.articles });
+    this.setState({ articles: parsedData.articles,totalResults:parsedData.totalResults });
   }
 
   handleNextClick = async() => {
@@ -27,12 +30,12 @@ export class News extends Component {
       page: this.state.page + 1,
     });
 
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2284196bba7c4b2697f4132f5b4f1236&page=${this.state.page}`;
+    let url = `https://newsapi.org/v2/everything?q=bitcoin&apiKey=2284196bba7c4b2697f4132f5b4f1236&page=${this.state.page}`;
     let data = await fetch(url);
     let parsedData = await data.json();
 
     console.log(parsedData.articles);
-
+    document.documentElement.scrollTop = 0;
     this.setState({ articles: parsedData.articles });
   };
 
@@ -40,12 +43,12 @@ export class News extends Component {
     await this.setState({
       page: this.state.page - 1,
     });
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=2284196bba7c4b2697f4132f5b4f1236&page=${this.state.page}`;
+    let url = `https://newsapi.org/v2/everything?q=bitcoin&apiKey=2284196bba7c4b2697f4132f5b4f1236&page=${this.state.page}`;
     let data = await fetch(url);
     let parsedData = await data.json();
 
     console.log(parsedData.articles);
-
+    document.documentElement.scrollTop = 0;
     this.setState({ articles: parsedData.articles });
   };
 
@@ -86,6 +89,7 @@ export class News extends Component {
           </div>
           <div>
             <button
+             disabled={this.state.page===Math.ceil(this.state.totalResults/20)}
               type="button"
               className="btn btn-danger"
               onClick={this.handleNextClick}
