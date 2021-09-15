@@ -16,6 +16,8 @@ export class News extends Component {
     document.title = `${this.capitalize(this.props.category)} - NewsOcean`;
   }
 
+  key="2284196bba7c4b2697f4132f5b4f1236"
+
   capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
@@ -30,7 +32,7 @@ export class News extends Component {
   async update() {
     this.props.progress(10);
     this.setState({ loading: true });
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=a43657b7a6cc428cbedaced1a86c2f54&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=${this.key}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     this.props.progress(30);
     let parsedData = await data.json();
@@ -63,10 +65,7 @@ export class News extends Component {
   // };
 
   fetchMoreData = async () => {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
-    
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=a43657b7a6cc428cbedaced1a86c2f54&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.key}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     
     let parsedData = await data.json();
@@ -75,8 +74,6 @@ export class News extends Component {
       page: this.state.page + 1,
       articles: this.state.articles.concat(parsedData.articles),
     });
-    
-    // console.log(this.state.articles.length);
   };
 
   render() {
@@ -100,7 +97,7 @@ export class News extends Component {
             <div className="row">
               {this.state.articles.map((element) => {
                 return (
-                  <div className="col-md-4" key={this.state.articles.url}>
+                  <div className="col-md-4" key={element.title}>
                     <NewsItem
                       key={element.url}
                       title={element.title ? element.title : ""}
