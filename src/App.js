@@ -6,6 +6,7 @@ import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
   pageSize = 15;
+  country="in"
 
   state = {
     progress: 0,
@@ -31,7 +32,7 @@ export default class App extends Component {
                 progress={this.setProgress}
                 key="general"
                 pageSize={this.pageSize}
-                country={"in"}
+                country={this.country}
                 category={"general"}
               />
             </Route>
@@ -40,7 +41,7 @@ export default class App extends Component {
                 progress={this.setProgress}
                 key="science"
                 pageSize={this.pageSize}
-                country={"in"}
+                country={this.country}
                 category={"science"}
               />
             </Route>
@@ -49,7 +50,7 @@ export default class App extends Component {
                 progress={this.setProgress}
                 key="health"
                 pageSize={this.pageSize}
-                country={"in"}
+                country={this.country}
                 category={"health"}
               />
             </Route>
@@ -58,7 +59,7 @@ export default class App extends Component {
                 progress={this.setProgress}
                 key="technology"
                 pageSize={this.pageSize}
-                country={"in"}
+                country={this.country}
                 category={"technology"}
               />
             </Route>
@@ -67,7 +68,7 @@ export default class App extends Component {
                 progress={this.setProgress}
                 key="sports"
                 pageSize={this.pageSize}
-                country={"in"}
+                country={this.country}
                 category={"sports"}
               />
             </Route>
@@ -76,7 +77,7 @@ export default class App extends Component {
                 progress={this.setProgress}
                 key="business"
                 pageSize={this.pageSize}
-                country={"in"}
+                country={this.country}
                 category={"business"}
               />
             </Route>
@@ -85,7 +86,7 @@ export default class App extends Component {
                 progress={this.setProgress}
                 key="entertainment"
                 pageSize={this.pageSize}
-                country={"in"}
+                country={this.country}
                 category={"entertainment"}
               />
             </Route>

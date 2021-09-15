@@ -3,9 +3,11 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { v4 as uuidv4 } from "uuid";
 
 export class News extends Component {
   constructor(props) {
+    //class constructor
     super(props);
     this.state = {
       articles: [],
@@ -13,12 +15,13 @@ export class News extends Component {
       page: 1,
       totalResults: 0,
     };
-    document.title = `${this.capitalize(this.props.category)} - NewsOcean`;
+    document.title = `${this.capitalize(this.props.category)} - NewsOcean`; //setting the title
   }
 
-  key="2284196bba7c4b2697f4132f5b4f1236"
+  key = "2284196bba7c4b2697f4132f5b4f1236"; //news api key
 
   capitalize = (s) => {
+    //function to capitalize
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
 
@@ -30,9 +33,10 @@ export class News extends Component {
   };
 
   async update() {
+    //function to update the states and data accordingly
     this.props.progress(10);
     this.setState({ loading: true });
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=${this.key}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.key}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     this.props.progress(30);
     let parsedData = await data.json();
@@ -46,6 +50,7 @@ export class News extends Component {
   }
 
   async componentDidMount() {
+    //mounting the component after rendering the document
     this.update();
   }
 
@@ -65,11 +70,12 @@ export class News extends Component {
   // };
 
   fetchMoreData = async () => {
+    //this function is calledd while scrolling,till all the articles have not been fetched
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.key}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-    let data = await fetch(url);
-    
+    let data = await fetch(url); //fetching the data
+
     let parsedData = await data.json();
-    
+
     this.setState({
       page: this.state.page + 1,
       articles: this.state.articles.concat(parsedData.articles),
@@ -79,9 +85,12 @@ export class News extends Component {
   render() {
     return (
       <>
-        <h1 className="text-center" style={{ margin: "25px 0px" }}>
-          NewsOcean - Top {this.capitalize(this.props.category)} Headlines
-        </h1>
+        <div className="container">
+          <h1 className="text-center" style={{ margin: "80px 0px 25px 0px" }}>
+            NewsOcean - Top {this.capitalize(this.props.category)} Headlines
+          </h1>
+        </div>
+
         {this.state.loading && <Spinner />}
         <InfiniteScroll
           dataLength={this.state.articles.length}
@@ -97,15 +106,15 @@ export class News extends Component {
             <div className="row">
               {this.state.articles.map((element) => {
                 return (
-                  <div className="col-md-4" key={element.title}>
+                  <div className="col-md-4" key={uuidv4()}>
                     <NewsItem
-                      key={element.url}
+                      key={uuidv4()}
                       title={element.title ? element.title : ""}
                       description={
                         element.description ? element.description : ""
                       }
                       imageUrl={
-                        element.urlToImage
+                        element.urlToImage !== null
                           ? element.urlToImage
                           : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVAkx75HMyg-N4Vb_vLLX_nhyxittiJJLdZg&usqp=CAU"
                       }
