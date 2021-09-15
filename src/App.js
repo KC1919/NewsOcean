@@ -6,7 +6,8 @@ import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
   pageSize = 15;
-  country="in"
+  country="in";
+  apiKey=process.env.REACT_APP_NEWS_API;
 
   state = {
     progress: 0,
@@ -34,6 +35,7 @@ export default class App extends Component {
                 pageSize={this.pageSize}
                 country={this.country}
                 category={"general"}
+                apiKey={this.apiKey}
               />
             </Route>
             <Route exact path="/science">
@@ -43,6 +45,7 @@ export default class App extends Component {
                 pageSize={this.pageSize}
                 country={this.country}
                 category={"science"}
+                apiKey={this.apiKey}
               />
             </Route>
             <Route exact path="/health">
@@ -52,7 +55,7 @@ export default class App extends Component {
                 pageSize={this.pageSize}
                 country={this.country}
                 category={"health"}
-              />
+                apiKey={this.apiKey}/>
             </Route>
             <Route exact path="/technology">
               <News
@@ -61,6 +64,7 @@ export default class App extends Component {
                 pageSize={this.pageSize}
                 country={this.country}
                 category={"technology"}
+                apiKey={this.apiKey}
               />
             </Route>
             <Route exact path="/sports">
@@ -70,7 +74,9 @@ export default class App extends Component {
                 pageSize={this.pageSize}
                 country={this.country}
                 category={"sports"}
-              />
+                apiKey={this.apiKey}
+
+                />
             </Route>
             <Route exact path="/business">
               <News
@@ -79,6 +85,7 @@ export default class App extends Component {
                 pageSize={this.pageSize}
                 country={this.country}
                 category={"business"}
+                apiKey={this.apiKey}
               />
             </Route>
             <Route exact path="/entertainment">
@@ -88,6 +95,7 @@ export default class App extends Component {
                 pageSize={this.pageSize}
                 country={this.country}
                 category={"entertainment"}
+                apiKey={this.apiKey}
               />
             </Route>
           </Switch>

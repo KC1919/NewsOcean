@@ -18,8 +18,6 @@ export class News extends Component {
     document.title = `${this.capitalize(this.props.category)} - NewsOcean`; //setting the title
   }
 
-  key = "2284196bba7c4b2697f4132f5b4f1236"; //news api key
-
   capitalize = (s) => {
     //function to capitalize
     return s.charAt(0).toUpperCase() + s.slice(1);
@@ -36,7 +34,7 @@ export class News extends Component {
     //function to update the states and data accordingly
     this.props.progress(10);
     this.setState({ loading: true });
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.key}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
     this.props.progress(30);
     let parsedData = await data.json();
@@ -71,7 +69,7 @@ export class News extends Component {
 
   fetchMoreData = async () => {
     //this function is calledd while scrolling,till all the articles have not been fetched
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.key}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url); //fetching the data
 
     let parsedData = await data.json();
